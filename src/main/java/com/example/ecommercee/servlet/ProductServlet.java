@@ -17,11 +17,11 @@ import java.util.List;
 public class ProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Get form data
-        String name = request.getParameter("productName");
-        String imageUrl = request.getParameter("productImage"); // Assuming the image URL is passed
-        double price = Double.parseDouble(request.getParameter("productPrice"));
-        String category = request.getParameter("productCategory");
-        String description = request.getParameter("productDescription");
+        String name = request.getParameter("name");
+        String imageUrl = request.getParameter("imageUrl"); // Assuming the image URL is passed
+        double price = Double.parseDouble(request.getParameter("price"));
+        String category = request.getParameter("category");
+        String description = request.getParameter("description");
 
         // Create Product object
         Product product = new Product(name, imageUrl, price, category, description);

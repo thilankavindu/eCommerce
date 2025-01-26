@@ -1,12 +1,22 @@
+
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.ecommercee.dto.ProductDTO" %>
+<%@ page import="com.example.ecommercee.dto.ProductDTO" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electronics - AliExpress</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Item Display</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Include SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.2/dist/sweetalert2.min.css" rel="stylesheet">
+
+    <!-- Include SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.2/dist/sweetalert2.min.js"></script>
+
     <style>
         /* Navigation Bar */
         .navbar {
@@ -42,55 +52,20 @@
             background-color: #ff7043;
         }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        .product-card {
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
+        .item-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .product-card:hover {
+        .item-card:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 3px 5px rgba(0,0,0,0.1);
         }
 
-        .product-card img {
-            border-radius: 12px 12px 0 0;
-            max-height: 250px;
-            object-fit: cover;
-        }
-
-        .product-card .card-body {
-            padding: 15px;
-            text-align: center;
-        }
-
-        .product-card .card-title {
-            font-weight: bold;
-            color: #333;
-        }
-
-        .product-card .price {
-            color: #ff5733;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-
-        .product-card .btn {
-            background: linear-gradient(90deg, rgba(255, 99, 71, 1) 0%, rgba(255, 69, 0, 1) 100%);
-            border: none;
-            color: white;
-        }
-
-        .product-card .btn:hover {
-            background-color: #ff5733;
+        /* Updated Image Size */
+        .item-image {
+            height: 200px;  /* Set a fixed height */
+            width: 50%;    /* Ensure the width is 100% */
+            object-fit: cover;  /* Ensures the image fits without stretching */
         }
 
         /* Footer */
@@ -139,36 +114,14 @@
             padding: 10px;  /* Reduced padding inside footer columns */
         }
 
-        /* Mobile Responsiveness */
-        @media (max-width: 767px) {
-            .banner-text {
-                font-size: 28px;
-            }
-
-            .navbar-nav .nav-link {
-                font-size: 14px;
-            }
-
-            .product-card {
-                margin-bottom: 20px;
-            }
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 767px) {
-            .product-card {
-                margin-bottom: 20px;
-            }
-        }
-
     </style>
 </head>
+<body class="bg-light">
 
-<body>
-
+<!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">AliExpress</a>
+        <a class="navbar-brand" href="index.jsp">Kavee Online Store</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -183,128 +136,79 @@
                         Categories
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="electronics.jsp">Electronics</a></li>
-                        <li><a class="dropdown-item" href="fashion.jsp">Fashion</a></li>
-                        <li><a class="dropdown-item" href="homeliving.jsp">Home & Living</a></li>
-                        <li><a class="dropdown-item" href="beauty.jsp">Beauty</a></li>
+                        <li><a class="dropdown-item" href="item-display?category=electronics">Electronics</a></li>
+                        <li><a class="dropdown-item" href="item-display?category=fashion">Fashion</a></li>
+                        <li><a class="dropdown-item" href="item-display?category=home_living">Home & Living</a></li>
+                        <li><a class="dropdown-item" href="item-display?category=beauty">Beauty</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Orders</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Sign In</a>
+                    <a class="nav-link" href="register.jsp">Sign In</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Cart</a>
+                    <a class="nav-link" href="cart.jsp">Cart</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-
-<div class="container my-5">
-    <h2 class="text-center mb-4">Electronics</h2>
+<br>
+<div class="container mt-4">
     <div class="row">
-        <!-- Product 1 -->
-        <div class="col-md-3 mb-4">
-            <div class="card product-card shadow-sm">
-                <img src="images/electronic/smartphone.jpeg" class="card-img-top" alt="Smartphone">
-                <div class="card-body">
-                    <h5 class="card-title" style="font-size: 1rem">2024 SERVO Small Smartphone 3.0" Display Dual SIM 3G WCDMA Android 8.1 OS 2GB+16GB GPS WIFI Portable Mini Mobile Phone Low Price
-                    </h5>
-                    <p class="price">$499.99</p>
-                    <a href="shopnow.jsp" class="btn btn-primary">Shop Now</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product 2 -->
-        <div class="col-md-3 mb-4">
-            <div class="card product-card shadow-sm">
-                <img src="images/electronic/laptop.jpeg" class="card-img-top" alt="Laptop">
-                <div class="card-body">
-                    <h5 class="card-title" style="font-size: 1rem">New Game Laptop 15.6-inch HD Screen Intel Celeron N5095 Windows 11 System Dual Band WiFi 16GB RAM 1TB SSD Business Office Laptop</h5>
-                    <p class="price">$799.99</p>
-                    <a href="" class="btn btn-primary">Shop Now</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product 3 -->
-        <div class="col-md-3 mb-4">
-            <div class="card product-card shadow-sm">
-                <img src="images/electronic/smartwatch.jpeg" class="card-img-top" alt="Smartwatch">
-                <div class="card-body">
-                    <h5 class="card-title" style="font-size: 1rem">1.83'' Sports Smart Watch Fitness Clock Health Monitor Waterproof Smartwatch Wireless Call Watches for Men Women IOS Xiaomi 2024</h5>
-                    <p class="price">$199.99</p>
-                    <a href="#" class="btn btn-primary">Shop Now</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product 4 -->
-        <div class="col-md-3 mb-4">
-            <div class="card product-card shadow-sm">
-                <img src="images/electronic/headphone.jpeg" class="card-img-top" alt="Headphones">
-                <div class="card-body">
-                    <h5 class="card-title" style="font-size: 1rem">Xiaomi Wireless Headphones P2961 Bluetooth 5.3 Over-ear Earphone For Samsung iPhone Stereo Hifi Headset Game Earbuds With Mic</h5>
-                    <p class="price">$149.99</p>
-                    <a href="#" class="btn btn-primary">Shop Now</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product 5 -->
-        <div class="col-md-3 mb-4">
-            <div class="card product-card shadow-sm">
-                <img src="images/electronic/tablet.jpeg" class="card-img-top" alt="Tablet">
-                <div class="card-body">
-                    <h5 class="card-title" style="font-size: 1rem">Global ROM Lenovo XiaoXin Pad 2024 Tablet 8GB 128GB Pads Qualcomm Snapdragon 685 Octa Core 11" WIFI 8MP Cam7040mAh 20W Charger</h5>
-                    <p class="price">$349.99</p>
-                    <a href="#" class="btn btn-primary">Shop Now</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product 6 -->
-        <div class="col-md-3 mb-4">
-            <div class="card product-card shadow-sm">
-                <img src="images/electronic/smart%20tv.jpeg" class="card-img-top" alt="Smart TV">
-                <div class="card-body">
-                    <h5 class="card-title"style="font-size: 1rem">Large Screen TV 75Inch Android TV Tempered Glass Television 4K UHD LED Smart TV</h5>
-                    <p class="price">$499.99</p>
-                    <a href="#" class="btn btn-primary">Shop Now</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product 7 -->
-        <div class="col-md-3 mb-4">
-            <div class="card product-card shadow-sm">
-                <img src="images/electronic/speaker.jpeg" class="card-img-top" alt="Bluetooth Speaker">
-                <div class="card-body">
-                    <h5 class="card-title"style="font-size: 1rem">XIAOMI Portable Bluetooth Speaker Mini Wireless High Fidelity Surround Sound Outdoor Waterproof Camping Party Loudspeaker</h5>
-                    <p class="price">$79.99</p>
-                    <a href="#" class="btn btn-primary">Shop Now</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product 8 -->
-        <div class="col-md-3 mb-4">
-            <div class="card product-card shadow-sm">
-                <img src="images/electronic/erbuds-1.jpeg" class="card-img-top" alt="Camera">
-                <div class="card-body">
-                    <h5 class="card-title"style="font-size: 1rem">Apple AirPods 4 Active Noise Cancellation powerful H2 chip Wireless Charging Case Bluetooth 5.3 Official original 100%</h5>
-                    <p class="price">$199.99</p>
-                    <a href="#" class="btn btn-primary">Shop Now</a>
-                </div>
+        <div class="col-12">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for products, brands, or categories">
+                <button class="btn btn-outline-secondary" type="button">Search</button>
             </div>
         </div>
     </div>
 </div>
+<br>
+<br>
 
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <%
+        List<ProductDTO> datalist = (List<ProductDTO>) request.getAttribute("products");
+
+        if (!datalist.isEmpty()) {
+            for (ProductDTO item : datalist) {
+                System.out.println(item.getImageUrl());
+    %>
+    <div class="col">
+        <div style="height: fit-content" class="card item-card h-100 shadow-sm">
+            <img src="images/<%=item.getImageUrl()%>" style="height: 250px;width: 70%;display: flex;align-items: center;justify-content:center"
+                 class="card-img-top item-image"
+                 alt="<%=item.getName()%>" >
+            <div class="card-body">
+                <h5 class="card-title"><%=item.getName()%></h5>
+                <p class="card-text">
+                    <strong>Price:</strong> LKR <%=item.getPrice()%><br>
+                    <strong>Available:</strong> <%=item.getCategory()%>
+                </p>
+                <p class="text-muted small"><%=item.getDescription()%></p>
+            </div>
+
+            <div class="card-footer">
+                <button onclick="addToCart(alert('Add to Cart'))" class="btn btn-primary w-100">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+    <%
+        }
+    } else {
+    %>
+    <div class="col-12">
+        <div class="alert alert-info text-center" role="alert">
+            No items available at the moment.
+        </div>
+    </div>
+    <%
+        }
+    %>
+</div>
 
 <!-- Footer -->
 <div class="footer">
@@ -347,11 +251,33 @@
     </div>
 </div>
 
-<!-- Bootstrap JS and dependencies -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="jquery-3.7.1.min.js"></script>
+<script>
+    function addToCart(itemCode) {
+        $.ajax({
+            url: "new-add-cart",
+            method: "POST",
+            data: {
+                itemCode: itemCode
+            },
+            success: function(response) {
+                if (response.status === 'success') {
+                    // Show success toast/alert
+                    alert('Item added to cart successfully!', 'success');
+                } else {
+                    // Show error toast/alert
+                    alert(response.message || 'Failed to add item to cart.', 'danger');
+                }
+            },
+            error: function() {
+                // Show error toast/alert
+                alert('Failed to add item to cart.', 'danger');
+            }
+        });
+    }
+</script>
 </body>
-
 </html>

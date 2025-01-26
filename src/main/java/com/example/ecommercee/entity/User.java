@@ -28,4 +28,11 @@ public class User {
     @OneToOne(mappedBy = "user" , cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "cartId" )
     private Cart cart;
+
+    public User(int userId, String name, String email, String password) {
+        this.userId = userId;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 }

@@ -16,23 +16,24 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    private int productId;
+    private int id;
 
     @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
-    private String description;
+    private String imageUrl;
 
     @Column(nullable = false)
     private double price;
 
-    @Column(nullable = false)
-    private int imageUrl;
+    private int qty;
 
-    @ManyToOne
-    @JoinColumn(name = "categoryId")
-    private Category category;
+   private String category;
+
+    @Column(nullable = false)
+    private String description;
+
 
     @OneToMany(mappedBy = "product" , cascade = CascadeType.ALL ,fetch = FetchType.EAGER)
     private List<OrderDetail> orderDetail;

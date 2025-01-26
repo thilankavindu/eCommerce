@@ -131,8 +131,8 @@
         <nav class="nav flex-column">
             <a class="nav-link active" href="#">Dashboard</a>
             <a class="nav-link" href="add%20new%20product.jsp">Product Management</a>
-            <a class="nav-link" href="#">Category Management</a>
-            <a class="nav-link" href="#">User Management</a>
+            <a class="nav-link" href="category%20manage.jsp">Category Management</a>
+            <a class="nav-link" href="user%20managemnt.jsp">User Management</a>
             <a class="nav-link" href="#">Orders</a>
             <a class="nav-link" href="#">Settings</a>
             <a class="nav-link" href="#">Logout</a>

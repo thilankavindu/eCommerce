@@ -2,6 +2,7 @@ package com.example.ecommercee.dao;
 
 import com.example.ecommercee.config.FactoryConfiguration;
 import com.example.ecommercee.dto.UserDTO;
+import com.example.ecommercee.entity.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -11,11 +12,12 @@ public class UserDAO {
 
         // Method to register a new user
         public boolean registerUser(UserDTO user) {
+            User user1 = new User(user.getId(),user.getName(), user.getEmail(), user.getPassword());
             System.out.println(user.getEmail());
             try {
                 Session session = FactoryConfiguration.getInstance().getSession();
                 Transaction transaction = session.beginTransaction();
-                session.save(user);
+                session.save(user1);
                 transaction.commit();
                 return true;
             } catch (Exception e) {
@@ -30,7 +32,7 @@ public class UserDAO {
             try {
                 session.beginTransaction();
                 String query = "FROM User WHERE email = :email AND password = :password";
-                UserDTO user = (UserDTO) session.createQuery(query)
+                User user = (User) session.createQuery(query)
                         .setParameter("email", email)
                         .setParameter("password", password)
                         .uniqueResult();

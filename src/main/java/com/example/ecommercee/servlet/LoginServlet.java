@@ -21,6 +21,7 @@ public class LoginServlet extends HttpServlet {
         // Authenticate user using UserDAO
         UserDAO userDAO = new UserDAO();
         boolean isAuthenticated = userDAO.authenticateUser(email, password);
+        System.out.println(isAuthenticated);
 
         if (isAuthenticated) {
             // Create a session for the logged-in user
@@ -28,7 +29,13 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("user", email);
 
             // Redirect to dashboard or home page
-            response.sendRedirect("dashboard.jsp");
+
+            if ("admin1234@gmail.com".equals(email)) {
+                // When login is successful
+                response.sendRedirect("admin.jsp");
+            } else {
+                response.sendRedirect("index.jsp");
+            }
         } else {
             // If authentication fails, display error
             request.setAttribute("error", "Invalid email or password.");

@@ -60,11 +60,11 @@
 
 <div class="login-container">
     <h2>Login</h2>
-    <form class="needs-validation" novalidate>
+    <form class="needs-validation" novalidate action="login" method="post">
         <!-- Email Field -->
         <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+            <input name="email" type="email" class="form-control" id="email" placeholder="Enter your email" required>
             <div class="invalid-feedback">
                 Please enter a valid email address.
             </div>
@@ -73,7 +73,7 @@
         <!-- Password Field -->
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+            <input name="password" type="password" class="form-control" id="password" placeholder="Enter your password" required>
             <div class="invalid-feedback">
                 Please enter your password.
             </div>
@@ -83,7 +83,7 @@
         <button type="submit" class="btn btn-custom">Login</button>
     </form>
 
-    <p class="footer-text">Don't have an account? <a href="#">Sign up here</a></p>
+    <p class="footer-text">Don't have an account? <a href="register.jsp">Sign up here</a></p>
 </div>
 
 <!-- Bootstrap JS and dependencies -->

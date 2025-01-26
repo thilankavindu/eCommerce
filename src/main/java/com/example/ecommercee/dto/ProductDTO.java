@@ -15,8 +15,20 @@ public class ProductDTO {
 
     private String description;
 
+    public ProductDTO(String name, String imageUrl, double price, String category, String description) {
+    }
+
     // Constructors
     public void Product() {}
+
+    public ProductDTO(int id, String name, String imageUrl, double price, String category, String description) {
+        this.id = id;
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.price = price;
+        this.category = category;
+        this.description = description;
+    }
 
     public void Product(String name, String imageUrl, double price, String category, String description) {
         this.name = name;

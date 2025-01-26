@@ -195,7 +195,7 @@
 <div class="container product-detail-container">
     <div class="row">
         <div class="col-md-6">
-            <img src="images/electronic/smartphone.jpeg" class="product-img" alt="Smartphone">
+            <img src="images/smartphone.jpeg" class="product-img" alt="Smartphone">
         </div>
         <div  class="col-md-6">
             <p class="product-price"style="font-size: 4rem">$499.99</p>

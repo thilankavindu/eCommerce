@@ -76,54 +76,48 @@
 
 <!-- Container -->
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-sm-12">
-            <div class="form-container">
-                <h2>Add New Product</h2>
-                <form>
-                    <!-- Product Name -->
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="saveProduct" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="productName" class="form-label">Product Name</label>
-                        <input type="text" class="form-control" id="productName" placeholder="Enter product name">
+                        <input name="name" type="text" class="form-control" id="productName" required>
                     </div>
-
-                    <!-- Product Image -->
+                    <div class="mb-3">
+                        <label for="productDes" class="form-label">Product Description</label>
+                        <input name="description" type="text" class="form-control" id="productDes" required>
+                    </div>
                     <div class="mb-3">
                         <label for="productImage" class="form-label">Product Image</label>
-                        <input type="file" class="form-control" id="productImage" accept="image/*" onchange="previewImage(event)">
-                        <img id="imgPreview" class="img-preview" src="" alt="Image Preview">
+                        <input  type="file" class="form-control" id="productImage" name="productImage" accept="image/*" required>
                     </div>
-
-                    <!-- Product Price -->
-                    <div class="mb-3">
-                        <label for="productPrice" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="productPrice" placeholder="Enter product price">
-                    </div>
-
-                    <!-- Product Category -->
                     <div class="mb-3">
                         <label for="productCategory" class="form-label">Category</label>
-                        <select class="form-control" id="productCategory">
+                        <select name="category" class="form-control" id="productCategory">
                             <option value="electronics">Electronics</option>
                             <option value="fashion">Fashion</option>
                             <option value="home_living">Home & Living</option>
                             <option value="beauty">Beauty</option>
                         </select>
+                    </div>                    <div class="mb-3">
+                        <label for="productPrice" class="form-label">Price</label>
+                        <input name="price" type="number" class="form-control" id="productPrice" min="0" step="0.01" required>
                     </div>
-
-                    <!-- Product Description -->
                     <div class="mb-3">
-                        <label for="productDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="productDescription" rows="4" placeholder="Enter product description"></textarea>
+                        <label for="productQuantity" class="form-label">Quantity</label>
+                        <input name="quantity" type="number" class="form-control" id="productQuantity" min="1" required>
                     </div>
-
-                    <!-- Submit Button -->
-                    <button type="submit" class="btn-submit">Add Product</button>
+                    <button type="submit" class="btn btn-primary" >Add Product</button>
                 </form>
+
             </div>
         </div>
-    </div>
-</div>
+    </div></div>
 
 <!-- Bootstrap JS and dependencies -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
